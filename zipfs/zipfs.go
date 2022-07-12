@@ -17,7 +17,15 @@ import (
 
 	"github.com/hanwen/go-fuse/v2/fs"
 	"github.com/hanwen/go-fuse/v2/fuse"
+
+	"github.com/klauspost/compress/zstd"
 )
+
+func init() {
+	Decomp := zstd.ZipDecompressor()
+	zip.RegisterDecompressor(zstd.ZipMethodWinZip, Decomp)
+	zip.RegisterDecompressor(zstd.ZipMethodPKWare, Decomp)
+}
 
 type zipRoot struct {
 	fs.Inode
